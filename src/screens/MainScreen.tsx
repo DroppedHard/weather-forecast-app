@@ -1,31 +1,18 @@
 import { PositionedCard } from "components/molecules";
 import { QueryWrapper } from "components/molecules/QueryWrapper";
 import { BackgroundMap, ForecastTable } from "components/organisms";
+import { SummaryFooter } from "components/organisms/SummaryFooter";
 import { useGeolocation } from "components/organisms/hooks";
-import { useGetWeeklyForecast } from "components/organisms/hooks/UseForecast";
-import { useEffect, useState } from "react";
 import type { GeolocationData } from "types/types";
 
 export const MainScreen = () => {
-	const { geolocation, selectedGeolocation, setSelectedGeolocation } =
+	const { initialGeolocation, setSelectedGeolocation, forecast, summary } =
 		useGeolocation();
-
-	const [currentGeolocation, setCurrentGeolocation] = useState<
-		GeolocationData | undefined
-	>(geolocation);
-	useEffect(() => {
-		if (selectedGeolocation) {
-			setCurrentGeolocation(selectedGeolocation);
-		} else if (geolocation) {
-			setCurrentGeolocation(geolocation);
-		}
-	}, [geolocation, selectedGeolocation]);
-	const forecast = useGetWeeklyForecast(currentGeolocation as GeolocationData);
 
 	return (
 		<>
 			<BackgroundMap
-				initialGeolocation={geolocation}
+				initialGeolocation={initialGeolocation}
 				setGeolocation={(newGeolocation: GeolocationData) =>
 					setSelectedGeolocation(newGeolocation)
 				}
@@ -34,6 +21,12 @@ export const MainScreen = () => {
 				<QueryWrapper
 					query={forecast}
 					renderSuccess={(data) => <ForecastTable data={data} />}
+				/>
+			</PositionedCard>
+			<PositionedCard bottom={15} left={15} width={500}>
+				<QueryWrapper
+					query={summary}
+					renderSuccess={(data) => <SummaryFooter data={data} />}
 				/>
 			</PositionedCard>
 		</>

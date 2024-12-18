@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { weatherApiKeys } from "services/queryKeyGen";
 import { getNextWeekForecast, getNextWeekSummary } from "services/weather";
-import type { GeolocationData, WeatherForecastResponse } from "types/types";
+import type {
+	GeolocationData,
+	WeatherForecastResponse,
+	WeatherSummaryResponse,
+} from "types/types";
 
 export const useGetWeeklyForecast = (geolocation: GeolocationData) => {
 	return useQuery<WeatherForecastResponse, Error>({
@@ -11,7 +15,7 @@ export const useGetWeeklyForecast = (geolocation: GeolocationData) => {
 };
 
 export const useGetWeeklySummary = (geolocation: GeolocationData) => {
-	return useQuery<WeatherForecastResponse, Error>({
+	return useQuery<WeatherSummaryResponse, Error>({
 		queryKey: weatherApiKeys.summary,
 		queryFn: async () => getNextWeekSummary(geolocation),
 	});

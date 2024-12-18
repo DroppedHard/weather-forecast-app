@@ -4,13 +4,13 @@ import Popper from "@mui/material/Popper";
 import { useState } from "react";
 
 type PersonalizedPopupProps = {
-	Icon: JSX.Element; // Icon to be displayed
-	PopupContent: JSX.Element; // Content to display in the popup
+	Icon: JSX.Element;
+	PopupContent: JSX.Element;
 };
 
 const style = {
 	popupStyle: {
-		zIndex: 30,
+		zIndex: 20,
 	},
 };
 
@@ -21,7 +21,7 @@ export default function PersonalizedPopup({
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(anchorEl ? null : event.currentTarget); // Toggle visibility
+		setAnchorEl(anchorEl ? null : event.currentTarget);
 	};
 
 	const open = Boolean(anchorEl);

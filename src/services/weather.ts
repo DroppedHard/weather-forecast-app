@@ -1,5 +1,9 @@
 import axios from "axios";
-import type { GeolocationData, WeatherForecastResponse } from "types/types";
+import type {
+	GeolocationData,
+	WeatherForecastResponse,
+	WeatherSummaryResponse,
+} from "types/types";
 import { API } from "./config";
 
 export const getNextWeekForecast = async (geolocation: GeolocationData) => {
@@ -19,5 +23,5 @@ export const getNextWeekSummary = async (geolocation: GeolocationData) => {
 			Longitude: geolocation.longitude,
 		},
 	});
-	return data as WeatherForecastResponse;
+	return data as WeatherSummaryResponse;
 };

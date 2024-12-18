@@ -1,22 +1,22 @@
 type PositionedCardProps = {
 	children: React.ReactNode;
-	position?: "absolute" | "fixed"; // Default is "absolute"
-	top?: number | string; // Can use numbers (px) or percentages
+	position?: "absolute" | "fixed";
+	top?: number | string;
 	right?: number | string;
 	bottom?: number | string;
 	left?: number | string;
-	width?: number | string; // Allow customizable width
-	height?: number | string; // Optional height
+	width?: number | string;
+	height?: number | string;
 };
 
 const styles = {
 	forecastWrapper: {
 		position: "absolute" as const,
-		backgroundColor: "rgba(255, 255, 255, 0.9)", // Semi-transparent background
+		backgroundColor: "rgba(255, 255, 255, 0.9)",
 		borderRadius: "8px",
 		boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
 		padding: "1rem",
-		zIndex: 0,
+		zIndex: 10,
 	},
 };
 
@@ -27,7 +27,7 @@ export const PositionedCard = ({
 	right,
 	bottom,
 	left,
-	width = 300, // Default width
+	width = 300,
 	height,
 }: PositionedCardProps) => {
 	return (
