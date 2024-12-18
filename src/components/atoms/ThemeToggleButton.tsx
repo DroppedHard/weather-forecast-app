@@ -8,7 +8,7 @@ export const ThemeToggleButton = () => {
 	return (
 		<IconButton
 			onClick={toggleDarkMode}
-			sx={{ position: "absolute", top: 16, left: 45 }}
+			sx={{ position: "absolute", top: 16, left: 45, zIndex: 50 }}
 		>
 			{isDarkMode ? <Brightness7 /> : <Brightness4 />}
 		</IconButton>

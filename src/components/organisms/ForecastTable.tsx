@@ -1,6 +1,9 @@
 import InfoIcon from "@mui/icons-material/Info";
+import TableChartIcon from "@mui/icons-material/TableChart";
 import {
 	Box,
+	Button,
+	Collapse,
 	Paper,
 	Table,
 	TableBody,
@@ -11,6 +14,7 @@ import {
 } from "@mui/material";
 import { WmoWeatherCodeIcon } from "components/atoms";
 import PersonalizedPopup from "components/atoms/PersonalizedPopup";
+import { useState } from "react";
 import { formatDate } from "services/utils";
 import type { WeatherForecastResponse } from "types/types";
 
@@ -47,6 +51,11 @@ const headerTextMapping = {
 export const ForecastTable = ({ data }: ForecastTableProps) => {
 	const { daily, daily_units } = data;
 
+	const [isTableVisible, setIsTableVisible] = useState(false);
+	const handleToggleTable = () => {
+		setIsTableVisible((prev) => !prev); // Toggle visibility of the table
+	};
+
 	const generateValues = (key: string, value: string | number) => {
 		switch (key) {
 			case "time":
@@ -77,44 +86,58 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 	};
 
 	return (
-		<TableContainer
-			component={Paper}
-			sx={{ maxWidth: "300px", maxHeight: "300px" }}
-		>
-			<Table size="small">
-				<TableHead>
-					<TableRow>
-						{Object.entries(daily_units).map(([key, unit]) => (
-							<TableCell key={key}>
-								<Box sx={style.headerText}>
-									<span>
-										{
-											headerTextMapping[
-												(key as keyof typeof headerTextMapping) || key
-											]
-										}
-									</span>
-									<PersonalizedPopup
-										iconOrText={<InfoIcon sx={style.infoIcon} />}
-										popupText={unit}
-									/>
-								</Box>
-							</TableCell>
-						))}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{daily.time.map((date, index) => (
-						<TableRow key={date}>
-							{Object.keys(headerTextMapping).map((key) => (
-								<TableCell key={key} sx={style.tableCell}>
-									{generateValues(key, daily[key as keyof typeof daily][index])}
-								</TableCell>
+		<div>
+			<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+				<Button
+					variant="contained"
+					onClick={handleToggleTable}
+					startIcon={<TableChartIcon />}
+				/>
+			</Box>
+			<Collapse in={isTableVisible}>
+				<TableContainer
+					component={Paper}
+					sx={{ maxWidth: "300px", maxHeight: "300px" }}
+				>
+					<Table size="small">
+						<TableHead>
+							<TableRow>
+								{Object.entries(daily_units).map(([key, unit]) => (
+									<TableCell key={key}>
+										<Box sx={style.headerText}>
+											<span>
+												{
+													headerTextMapping[
+														(key as keyof typeof headerTextMapping) || key
+													]
+												}
+											</span>
+											<PersonalizedPopup
+												iconOrText={<InfoIcon sx={style.infoIcon} />}
+												popupText={unit}
+											/>
+										</Box>
+									</TableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{daily.time.map((date, index) => (
+								<TableRow key={date}>
+									{Object.keys(headerTextMapping).map((key) => (
+										<TableCell key={key} sx={style.tableCell}>
+											{generateValues(
+												key,
+												daily[key as keyof typeof daily][index],
+											)}
+										</TableCell>
+									))}
+								</TableRow>
 							))}
-						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</TableContainer>
+						</TableBody>
+					</Table>
+				</TableContainer>
+			</Collapse>
+		</div>
 	);
 };

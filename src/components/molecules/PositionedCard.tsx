@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 
 type PositionedCardProps = {
 	children: React.ReactNode;
@@ -9,7 +9,6 @@ const styles = {
 	positionedCard: {
 		position: "absolute" as const,
 		zIndex: 20,
-		border: "1px solid",
 		borderRadius: "5px",
 	},
 };
@@ -18,8 +17,6 @@ export const PositionedCard = ({
 	children,
 	placement = "top-right",
 }: PositionedCardProps) => {
-	const theme = useTheme();
-	const borderColor = theme.palette.mode === "dark" ? "#fff" : "#000";
 	const positionMap = {
 		bottom: {
 			bottom: 15,
@@ -35,7 +32,6 @@ export const PositionedCard = ({
 		<Box
 			style={{
 				...styles.positionedCard,
-				borderColor,
 				...positionMap[placement],
 			}}
 		>
