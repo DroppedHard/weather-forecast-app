@@ -1,3 +1,4 @@
+import { ThemeToggleButton } from "components/atoms";
 import { PositionedCard } from "components/molecules";
 import { QueryWrapper } from "components/molecules/QueryWrapper";
 import { BackgroundMap, ForecastTable } from "components/organisms";
@@ -17,18 +18,19 @@ export const MainScreen = () => {
 					setSelectedGeolocation(newGeolocation)
 				}
 			/>
-			<PositionedCard top={15} right={15} width={500}>
+			<PositionedCard placement="top-right">
 				<QueryWrapper
 					query={forecast}
 					renderSuccess={(data) => <ForecastTable data={data} />}
 				/>
 			</PositionedCard>
-			<PositionedCard bottom={15} left={15} width={500}>
+			<PositionedCard placement="bottom">
 				<QueryWrapper
 					query={summary}
 					renderSuccess={(data) => <SummaryFooter data={data} />}
 				/>
 			</PositionedCard>
+			<ThemeToggleButton />
 		</>
 	);
 };

@@ -43,12 +43,6 @@ export const LocationPermissionModal = ({
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				setLocation(position.coords);
-				showAlert(
-					<PersonalizedAlert
-						message={"Geolocation retrieved!"}
-						severity={AlertSeverity.success}
-					/>,
-				);
 				handleClose();
 			},
 			(err) => {

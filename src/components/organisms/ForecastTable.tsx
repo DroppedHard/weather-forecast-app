@@ -21,71 +21,72 @@ const style = {
 		fontSize: 12,
 	},
 	headerText: {
+		fontSize: 12,
 		display: "flex", // Enable flexbox
 		justifyContent: "space-between", // Spread content to left and right
 		alignItems: "center", // Align vertically in the middle
+		lineHeight: 1.2,
 	},
 	tableCell: {
 		fontSize: 12,
 		textAlign: "center",
+		padding: "4px 8px",
 	},
 };
 
 const headerTextMapping = {
 	time: "Dzień",
-	weather_code: "Kod pogody",
-	temperature_2m_max: "Maks. temperatura",
-	temperature_2m_min: "Min. temperatura",
-	estimated_energy_generated: "Estymata energii",
+	weather_code: "Pogoda",
+	temperature_2m_max: "Max temp",
+	temperature_2m_min: "Min temp",
+	estimated_energy_generated: "szac. energia",
 };
 
 export const ForecastTable = ({ data }: ForecastTableProps) => {
 	const { daily, daily_units } = data;
 	return (
-		<>
-			<TableContainer
-				component={Paper}
-				sx={{ maxWidth: "100%", margin: "1rem auto" }}
-			>
-				<Table>
-					<TableHead>
-						<TableRow>
-							{Object.entries(daily_units).map(([key, unit]) => (
-								<TableCell key={key}>
-									<Box sx={style.headerText}>
-										<span>
-											{
-												headerTextMapping[
-													(key as keyof typeof headerTextMapping) || key
-												]
-											}
-										</span>
-										<PersonalizedPopup
-											Icon={<InfoIcon sx={style.infoIcon} />}
-											PopupContent={<i>{unit}</i>}
-										/>
-									</Box>
+		<TableContainer
+			component={Paper}
+			sx={{ maxWidth: "300px", maxHeight: "300px" }}
+		>
+			<Table size="small">
+				<TableHead>
+					<TableRow>
+						{Object.entries(daily_units).map(([key, unit]) => (
+							<TableCell key={key}>
+								<Box sx={style.headerText}>
+									<span>
+										{
+											headerTextMapping[
+												(key as keyof typeof headerTextMapping) || key
+											]
+										}
+									</span>
+									<PersonalizedPopup
+										Icon={<InfoIcon sx={style.infoIcon} />}
+										PopupContent={<i>{unit}</i>}
+									/>
+								</Box>
+							</TableCell>
+						))}
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{daily.time.map((date, index) => (
+						<TableRow key={date}>
+							{Object.keys(headerTextMapping).map((key) => (
+								<TableCell key={key} sx={style.tableCell}>
+									{key === "estimated_energy_generated"
+										? (
+												daily[key as keyof typeof daily][index] as number
+											).toFixed(2)
+										: daily[key as keyof typeof daily][index]}
 								</TableCell>
 							))}
 						</TableRow>
-					</TableHead>
-					<TableBody>
-						{daily.time.map((date, index) => (
-							<TableRow key={date}>
-								{Object.keys(headerTextMapping).map((key) => (
-									<TableCell key={key} sx={style.tableCell}>
-										{key === "estimated_energy_generated"
-											? (
-													daily[key as keyof typeof daily][index] as number
-												).toFixed(2)
-											: daily[key as keyof typeof daily][index]}
-									</TableCell>
-								))}
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
-		</>
+					))}
+				</TableBody>
+			</Table>
+		</TableContainer>
 	);
 };

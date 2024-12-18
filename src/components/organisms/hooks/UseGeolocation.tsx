@@ -1,10 +1,11 @@
+import { PersonalizedAlert } from "components/atoms";
 import { LocationPermissionModal } from "components/molecules";
 import {
 	useGetWeeklyForecast,
 	useGetWeeklySummary,
 } from "components/organisms/hooks/UseForecast";
 import { useEffect, useState } from "react";
-import type { GeolocationData } from "types/types";
+import { AlertSeverity, type GeolocationData } from "types/types";
 import { useOverlay } from "../context";
 
 export const useGeolocation = () => {
@@ -17,7 +18,7 @@ export const useGeolocation = () => {
 	const [currentGeolocation, setCurrentGeolocation] = useState<
 		GeolocationData | undefined
 	>(undefined);
-	const { showOverlay, hideOverlay } = useOverlay();
+	const { showOverlay, hideOverlay, showAlert } = useOverlay();
 
 	const forecast = useGetWeeklyForecast(currentGeolocation as GeolocationData);
 	const summary = useGetWeeklySummary(currentGeolocation as GeolocationData);
@@ -38,7 +39,6 @@ export const useGeolocation = () => {
 	}, [hideOverlay, showOverlay]);
 
 	useEffect(() => {
-		console.log("checking");
 		if (selectedGeolocation) {
 			if (
 				currentGeolocation?.latitude !== selectedGeolocation.latitude ||
@@ -58,10 +58,15 @@ export const useGeolocation = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		console.log("refetch");
 		if (currentGeolocation) {
 			forecast.refetch();
 			summary.refetch();
+			showAlert(
+				<PersonalizedAlert
+					message={`Current location: ${currentGeolocation.latitude.toFixed(4)}, ${currentGeolocation.longitude.toFixed(4)}`}
+					severity={AlertSeverity.info}
+				/>,
+			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentGeolocation]);

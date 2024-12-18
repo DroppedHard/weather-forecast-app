@@ -1,49 +1,45 @@
+import { Box, useTheme } from "@mui/material";
+
 type PositionedCardProps = {
 	children: React.ReactNode;
-	position?: "absolute" | "fixed";
-	top?: number | string;
-	right?: number | string;
-	bottom?: number | string;
-	left?: number | string;
-	width?: number | string;
-	height?: number | string;
+	placement?: "top-right" | "bottom";
 };
 
 const styles = {
-	forecastWrapper: {
+	positionedCard: {
 		position: "absolute" as const,
-		backgroundColor: "rgba(255, 255, 255, 0.9)",
-		borderRadius: "8px",
-		boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-		padding: "1rem",
 		zIndex: 10,
+		border: "1px solid",
+		borderRadius: "5px",
 	},
 };
 
 export const PositionedCard = ({
 	children,
-	position = "absolute",
-	top,
-	right,
-	bottom,
-	left,
-	width = 300,
-	height,
+	placement = "top-right",
 }: PositionedCardProps) => {
+	const theme = useTheme();
+	const borderColor = theme.palette.mode === "dark" ? "#fff" : "#000";
+	const positionMap = {
+		bottom: {
+			bottom: 15,
+			left: "50%",
+			transform: "translate(-50%)",
+		},
+		"top-right": {
+			top: 15,
+			right: 15,
+		},
+	};
 	return (
-		<div
+		<Box
 			style={{
-				...styles.forecastWrapper,
-				position,
-				top,
-				right,
-				bottom,
-				left,
-				width,
-				height,
+				...styles.positionedCard,
+				borderColor,
+				...positionMap[placement],
 			}}
 		>
 			{children}
-		</div>
+		</Box>
 	);
 };

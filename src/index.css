@@ -1,0 +1,12 @@
+/* source: https://dev.to/deepakdevanand/leaflet-map-dark-theme-5ej0 */
+
+.dark-map .leaflet-container {
+  background-color: #000;
+}
+
+.dark-map .leaflet-layer,
+.dark-map .leaflet-control-zoom-in,
+.dark-map .leaflet-control-zoom-out,
+.dark-map .leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
