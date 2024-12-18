@@ -4,7 +4,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { CssBaseline } from "@mui/material";
 import React from "react";
-import MainScreen from "./screens/MainScreen";
+import { MainScreen } from "screens/MainScreen";
 
 function App() {
 	return (

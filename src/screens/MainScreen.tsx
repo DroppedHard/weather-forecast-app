@@ -1,8 +1,8 @@
 import { useState } from "react";
-import LocationPermissionModal from "../components/molecules/LocationPermissionModal";
-import { BackgroundMap } from "../components/organism/BackgroundMap";
+import { LocationPermissionModal } from "../components/molecules";
+import { BackgroundMap } from "../components/organisms";
 
-export default function MainScreen() {
+export function MainScreen() {
 	const [permissionModalDisplayed, setPpermissionModalDisplayed] =
 		useState(true);
 	return (

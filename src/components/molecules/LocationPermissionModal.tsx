@@ -1,5 +1,5 @@
 import { Box, Link, Modal, Typography } from "@mui/material";
-import { PersonalizedButton } from "../atoms/PersonalizedButton";
+import { PersonalizedButton } from "components/atoms";
 
 type LocationPermissionModalProps = {
 	handleClose: () => void;
@@ -18,9 +18,7 @@ const style = {
 	p: 4,
 };
 
-export default function LocationPermissionModal(
-	props: LocationPermissionModalProps,
-) {
+export function LocationPermissionModal(props: LocationPermissionModalProps) {
 	const { handleClose, isOpen } = props;
 
 	const askForPermission = () => {
