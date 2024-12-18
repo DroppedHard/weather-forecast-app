@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Alert, IconButton } from "@mui/material";
 import { useOverlay } from "components/organisms/context";
+import { atomStyles } from "styles/generalStyles";
 import type { PersonalizedAlertProps } from "types/types";
 
 export const PersonalizedAlert = ({
@@ -25,14 +26,7 @@ export const PersonalizedAlert = ({
 		<Alert
 			severity={severity}
 			action={action}
-			sx={{
-				position: "absolute",
-				top: 20,
-				left: "50%",
-				transform: "translateX(-50%)",
-				zIndex: 9999,
-				width: "auto",
-			}}
+			sx={atomStyles.personalizedAlert}
 		>
 			{message}
 		</Alert>

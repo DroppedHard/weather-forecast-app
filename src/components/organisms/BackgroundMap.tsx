@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { LocationMarker } from "components/molecules";
 import { InitialMarker } from "components/molecules/InitialMarker";
 import type { LatLngTuple } from "leaflet";
+import { organismStyles } from "styles/generalStyles";
 import type { GeolocationData } from "types/types";
 
 type BackgroundMapProps = {
@@ -22,7 +23,7 @@ export const BackgroundMap = ({
 		<MapContainer
 			center={center}
 			zoom={13}
-			style={{ height: "100vh", width: "100%", zIndex: 10 }}
+			style={organismStyles.backgroundMap}
 		>
 			<TileLayer
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

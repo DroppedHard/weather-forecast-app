@@ -1,16 +1,9 @@
 import { Box } from "@mui/material";
+import { moleculeStyles } from "styles/generalStyles";
 
 type PositionedCardProps = {
 	children: React.ReactNode;
 	placement?: "top-right" | "bottom";
-};
-
-const styles = {
-	positionedCard: {
-		position: "absolute" as const,
-		zIndex: 20,
-		borderRadius: "5px",
-	},
 };
 
 export const PositionedCard = ({
@@ -31,7 +24,7 @@ export const PositionedCard = ({
 	return (
 		<Box
 			style={{
-				...styles.positionedCard,
+				...moleculeStyles.positionedCard,
 				...positionMap[placement],
 			}}
 		>

@@ -6,3 +6,11 @@ export const formatDate = (unformattedDate: string) => {
 		year: "numeric",
 	}).format(date);
 };
+
+export const headerTextMapping = {
+	time: "Dzień",
+	weather_code: "Pogoda",
+	temperature_2m_max: "Max temp",
+	temperature_2m_min: "Min temp",
+	estimated_energy_generated: "szac. energia",
+};

@@ -1,4 +1,5 @@
 import { Card, CardContent, Typography } from "@mui/material";
+import { organismStyles } from "styles/generalStyles";
 import type { WeatherSummaryResponse } from "types/types";
 
 type SummaryFooterProps = {
@@ -11,7 +12,7 @@ export const SummaryFooter = ({ data }: SummaryFooterProps) => {
 		: "Bez opadów";
 
 	return (
-		<Card sx={{ minWidth: 275 }}>
+		<Card sx={organismStyles.summaryFooter}>
 			<CardContent>
 				<Typography variant="body2" color="textSecondary">
 					<strong>Skrajne temperatury:</strong> {data.min_temperature} /{" "}

@@ -8,10 +8,10 @@ type InitialMarkerProps = {
 };
 
 const homeIcon = new L.Icon({
-	iconUrl: "/icons/markers/home.svg", // Replace with your icon path
-	iconSize: [30, 30], // Adjust size as needed
-	iconAnchor: [15, 30], // Anchor point (center bottom of the icon)
-	popupAnchor: [0, -30], // Position of popup relative to the icon
+	iconUrl: "/icons/markers/home.svg",
+	iconSize: [30, 30],
+	iconAnchor: [15, 30],
+	popupAnchor: [0, -30],
 });
 
 export const InitialMarker = ({ position }: InitialMarkerProps) => {

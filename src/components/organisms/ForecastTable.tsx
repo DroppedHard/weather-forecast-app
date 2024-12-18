@@ -15,37 +15,12 @@ import {
 import { WmoWeatherCodeIcon } from "components/atoms";
 import PersonalizedPopup from "components/atoms/PersonalizedPopup";
 import { useState } from "react";
-import { formatDate } from "services/utils";
+import { formatDate, headerTextMapping } from "services/utils";
+import { organismStyles } from "styles/generalStyles";
 import type { WeatherForecastResponse } from "types/types";
 
 type ForecastTableProps = {
 	data: WeatherForecastResponse;
-};
-
-const style = {
-	infoIcon: {
-		fontSize: 12,
-	},
-	headerText: {
-		fontSize: 12,
-		display: "flex", // Enable flexbox
-		justifyContent: "space-between", // Spread content to left and right
-		alignItems: "center", // Align vertically in the middle
-		lineHeight: 1.2,
-	},
-	tableCell: {
-		fontSize: 12,
-		textAlign: "center",
-		padding: "4px 8px",
-	},
-};
-
-const headerTextMapping = {
-	time: "Dzień",
-	weather_code: "Pogoda",
-	temperature_2m_max: "Max temp",
-	temperature_2m_min: "Min temp",
-	estimated_energy_generated: "szac. energia",
 };
 
 export const ForecastTable = ({ data }: ForecastTableProps) => {
@@ -87,7 +62,7 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 
 	return (
 		<div>
-			<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+			<Box sx={organismStyles.forecastTable.buttonBox}>
 				<Button
 					variant="contained"
 					onClick={handleToggleTable}
@@ -97,14 +72,14 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 			<Collapse in={isTableVisible}>
 				<TableContainer
 					component={Paper}
-					sx={{ maxWidth: "300px", maxHeight: "300px" }}
+					sx={organismStyles.forecastTable.table}
 				>
 					<Table size="small">
 						<TableHead>
 							<TableRow>
 								{Object.entries(daily_units).map(([key, unit]) => (
 									<TableCell key={key}>
-										<Box sx={style.headerText}>
+										<Box sx={organismStyles.forecastTable.headerText}>
 											<span>
 												{
 													headerTextMapping[
@@ -113,7 +88,11 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 												}
 											</span>
 											<PersonalizedPopup
-												iconOrText={<InfoIcon sx={style.infoIcon} />}
+												iconOrText={
+													<InfoIcon
+														sx={organismStyles.forecastTable.infoIcon}
+													/>
+												}
 												popupText={unit}
 											/>
 										</Box>
@@ -125,7 +104,10 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 							{daily.time.map((date, index) => (
 								<TableRow key={date}>
 									{Object.keys(headerTextMapping).map((key) => (
-										<TableCell key={key} sx={style.tableCell}>
+										<TableCell
+											key={key}
+											sx={organismStyles.forecastTable.tableCell}
+										>
 											{generateValues(
 												key,
 												daily[key as keyof typeof daily][index],

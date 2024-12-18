@@ -43,7 +43,7 @@ export const OverlayProvider: React.FC<{ children: JSX.Element }> = ({
 			}
 			setAlert(content);
 			const newTimeout = setTimeout(() => {
-				hideAlert(); // Hide the alert after timeout
+				hideAlert();
 			}, ALERT_AUTO_HIDE_DURATION);
 			setAlertTimeout(newTimeout);
 		},
