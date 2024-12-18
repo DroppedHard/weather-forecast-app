@@ -4,9 +4,12 @@ import type { GeolocationData } from "types/types";
 import { useOverlay } from "../context";
 
 export const useGeolocation = () => {
-	const [geolocation, setGeolocation] = useState<GeolocationData>(null);
-	const [selectedGeolocation, setSelectedGeolocation] =
-		useState<GeolocationData>(null);
+	const [geolocation, setGeolocation] = useState<GeolocationData | undefined>(
+		undefined,
+	);
+	const [selectedGeolocation, setSelectedGeolocation] = useState<
+		GeolocationData | undefined
+	>(undefined);
 	const { showOverlay, hideOverlay } = useOverlay();
 
 	useEffect(() => {
