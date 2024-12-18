@@ -9,7 +9,9 @@ import {
 	TableHead,
 	TableRow,
 } from "@mui/material";
+import { WmoWeatherCodeIcon } from "components/atoms";
 import PersonalizedPopup from "components/atoms/PersonalizedPopup";
+import { formatDate } from "services/utils";
 import type { WeatherForecastResponse } from "types/types";
 
 type ForecastTableProps = {
@@ -44,6 +46,36 @@ const headerTextMapping = {
 
 export const ForecastTable = ({ data }: ForecastTableProps) => {
 	const { daily, daily_units } = data;
+
+	const generateValues = (key: string, value: string | number) => {
+		switch (key) {
+			case "time":
+				return (
+					<PersonalizedPopup
+						iconOrText={formatDate(value as string)}
+						popupText={daily_units[key]}
+					/>
+				);
+			case "weather_code":
+				return <WmoWeatherCodeIcon code={value as number} fontSize="small" />;
+			case "temperature_2m_max":
+			case "temperature_2m_min":
+				return (
+					<PersonalizedPopup
+						iconOrText={value as string}
+						popupText={daily_units[key]}
+					/>
+				);
+			case "estimated_energy_generated":
+				return (
+					<PersonalizedPopup
+						iconOrText={(value as number).toFixed(2)}
+						popupText={daily_units[key]}
+					/>
+				);
+		}
+	};
+
 	return (
 		<TableContainer
 			component={Paper}
@@ -63,8 +95,8 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 										}
 									</span>
 									<PersonalizedPopup
-										Icon={<InfoIcon sx={style.infoIcon} />}
-										PopupContent={<i>{unit}</i>}
+										iconOrText={<InfoIcon sx={style.infoIcon} />}
+										popupText={unit}
 									/>
 								</Box>
 							</TableCell>
@@ -76,11 +108,7 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 						<TableRow key={date}>
 							{Object.keys(headerTextMapping).map((key) => (
 								<TableCell key={key} sx={style.tableCell}>
-									{key === "estimated_energy_generated"
-										? (
-												daily[key as keyof typeof daily][index] as number
-											).toFixed(2)
-										: daily[key as keyof typeof daily][index]}
+									{generateValues(key, daily[key as keyof typeof daily][index])}
 								</TableCell>
 							))}
 						</TableRow>

@@ -1,45 +1,33 @@
-import { IconButton } from "@mui/material";
-import Box from "@mui/material/Box";
-import Popper from "@mui/material/Popper";
+import { IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
 
 type PersonalizedPopupProps = {
-	Icon: JSX.Element;
-	PopupContent: JSX.Element;
-};
-
-const style = {
-	popupStyle: {
-		zIndex: 20,
-	},
+	iconOrText: JSX.Element | string;
+	popupText: string;
 };
 
 export default function PersonalizedPopup({
-	Icon,
-	PopupContent,
+	iconOrText,
+	popupText,
 }: PersonalizedPopupProps) {
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(anchorEl ? null : event.currentTarget);
+	const [open, setOpen] = useState(false);
+	const handleTooltipOpen = () => {
+		setOpen(true);
+	};
+	const handleTooltipClose = () => {
+		setOpen(false);
 	};
 
-	const open = Boolean(anchorEl);
-	const id = open ? "simple-popper" : undefined;
+	const renderContent = () => {
+		if (typeof iconOrText === "string") {
+			return <span>{iconOrText}</span>;
+		}
+		return <IconButton onClick={handleTooltipOpen}>{iconOrText}</IconButton>;
+	};
 
 	return (
-		<div style={style.popupStyle}>
-			<IconButton onClick={handleClick}>{Icon}</IconButton>
-			<Popper id={id} open={open} anchorEl={anchorEl} placement="top">
-				<Box
-					sx={{
-						bgcolor: "background.paper",
-						boxShadow: 2,
-					}}
-				>
-					{PopupContent}
-				</Box>
-			</Popper>
-		</div>
+		<Tooltip title={popupText} open={open} onClose={handleTooltipClose}>
+			{renderContent()}
+		</Tooltip>
 	);
 }

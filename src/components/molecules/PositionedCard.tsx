@@ -8,7 +8,7 @@ type PositionedCardProps = {
 const styles = {
 	positionedCard: {
 		position: "absolute" as const,
-		zIndex: 10,
+		zIndex: 20,
 		border: "1px solid",
 		borderRadius: "5px",
 	},
