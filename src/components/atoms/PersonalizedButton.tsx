@@ -5,13 +5,13 @@ type PersonalizedButtonProps = {
 	handleOnClick: () => void;
 };
 
-export function PersonalizedButton({
+export const PersonalizedButton = ({
 	text,
 	handleOnClick,
-}: PersonalizedButtonProps) {
+}: PersonalizedButtonProps) => {
 	return (
 		<Button variant="outlined" onClick={handleOnClick}>
 			{text}
 		</Button>
 	);
-}
+};

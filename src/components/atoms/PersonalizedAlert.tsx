@@ -3,10 +3,10 @@ import { Alert, IconButton } from "@mui/material";
 import { useOverlay } from "components/organisms/context";
 import type { PersonalizedAlertProps } from "types/types";
 
-export function PersonalizedAlert({
+export const PersonalizedAlert = ({
 	message,
 	severity,
-}: PersonalizedAlertProps) {
+}: PersonalizedAlertProps) => {
 	const { hideAlert } = useOverlay();
 
 	const action = (
@@ -37,4 +37,4 @@ export function PersonalizedAlert({
 			{message}
 		</Alert>
 	);
-}
+};

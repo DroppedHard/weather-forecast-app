@@ -22,11 +22,11 @@ const style = {
 	p: 4,
 };
 
-export function LocationPermissionModal({
+export const LocationPermissionModal = ({
 	handleClose,
 	setGeolocation: setLocation,
 	isOpen,
-}: LocationPermissionModalProps) {
+}: LocationPermissionModalProps) => {
 	const { showAlert } = useOverlay();
 
 	const askForPermission = () => {
@@ -92,4 +92,4 @@ export function LocationPermissionModal({
 			</Box>
 		</Modal>
 	);
-}
+};

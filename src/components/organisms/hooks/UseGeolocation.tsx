@@ -5,6 +5,8 @@ import { useOverlay } from "../context";
 
 export const useGeolocation = () => {
 	const [geolocation, setGeolocation] = useState<GeolocationData>(null);
+	const [selectedGeolocation, setSelectedGeolocation] =
+		useState<GeolocationData>(null);
 	const { showOverlay, hideOverlay } = useOverlay();
 
 	useEffect(() => {
@@ -21,5 +23,10 @@ export const useGeolocation = () => {
 			/>,
 		);
 	}, [hideOverlay, showOverlay]);
-	return { geolocation, setGeolocation };
+	return {
+		geolocation,
+		setGeolocation,
+		selectedGeolocation,
+		setSelectedGeolocation,
+	};
 };
