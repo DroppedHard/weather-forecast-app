@@ -1,8 +1,12 @@
 import { Box, Link, Modal, Typography } from "@mui/material";
 import { PersonalizedButton } from "components/atoms";
+import { PersonalizedAlert } from "components/atoms";
+import { useOverlay } from "components/organisms/context";
+import { AlertSeverity } from "types/types";
 
 type LocationPermissionModalProps = {
 	handleClose: () => void;
+	setGeolocation: (geolocation: GeolocationCoordinates) => void;
 	isOpen: boolean;
 };
 
@@ -18,21 +22,44 @@ const style = {
 	p: 4,
 };
 
-export function LocationPermissionModal(props: LocationPermissionModalProps) {
-	const { handleClose, isOpen } = props;
+export function LocationPermissionModal({
+	handleClose,
+	setGeolocation: setLocation,
+	isOpen,
+}: LocationPermissionModalProps) {
+	const { showAlert } = useOverlay();
 
 	const askForPermission = () => {
 		if (!navigator.geolocation) {
-			console.error("Geolocation is not supported by your browser.");
+			showAlert(
+				<PersonalizedAlert
+					message={"Geolocation is not supported by your browser."}
+					severity={AlertSeverity.error}
+				/>,
+			);
+			handleClose();
 			return;
 		}
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
-				const { latitude, longitude } = position.coords;
-				console.log({ latitude, longitude });
+				setLocation(position.coords);
+				showAlert(
+					<PersonalizedAlert
+						message={"Geolocation retrieved!"}
+						severity={AlertSeverity.success}
+					/>,
+				);
+				handleClose();
 			},
 			(err) => {
-				console.error(`Error: ${err.message}`);
+				console.log(err);
+				showAlert(
+					<PersonalizedAlert
+						message={`Error: ${err.message}`}
+						severity={AlertSeverity.error}
+					/>,
+				);
+				handleClose();
 			},
 		);
 	};

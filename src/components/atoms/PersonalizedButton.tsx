@@ -5,8 +5,10 @@ type PersonalizedButtonProps = {
 	handleOnClick: () => void;
 };
 
-export function PersonalizedButton(props: PersonalizedButtonProps) {
-	const { text, handleOnClick } = props;
+export function PersonalizedButton({
+	text,
+	handleOnClick,
+}: PersonalizedButtonProps) {
 	return (
 		<Button variant="outlined" onClick={handleOnClick}>
 			{text}

@@ -1,16 +1,22 @@
-import { useState } from "react";
-import { LocationPermissionModal } from "../components/molecules";
-import { BackgroundMap } from "../components/organisms";
+import { BackgroundMap } from "components/organisms";
+import { useGeolocation } from "components/organisms/hooks";
+import type { GeolocationData } from "types/types";
 
 export function MainScreen() {
-	const [permissionModalDisplayed, setPpermissionModalDisplayed] =
-		useState(true);
+	const { geolocation, setGeolocation } = useGeolocation();
+	console.log(location);
 	return (
 		<>
-			<BackgroundMap />
-			<LocationPermissionModal
-				handleClose={() => setPpermissionModalDisplayed(false)}
-				isOpen={permissionModalDisplayed}
+			<BackgroundMap
+				key={
+					geolocation
+						? `${geolocation.latitude},${geolocation.longitude}`
+						: "0,0"
+				}
+				initialGeolocation={geolocation}
+				setGeolocation={(newGeolocation: GeolocationData) =>
+					setGeolocation(newGeolocation)
+				}
 			/>
 		</>
 	);
