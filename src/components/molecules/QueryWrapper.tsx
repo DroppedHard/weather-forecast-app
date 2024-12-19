@@ -13,7 +13,7 @@ export const QueryWrapper = <T,>({
 	renderSuccess,
 }: QueryWrapperProps<T>) => {
 	const { showAlert } = useOverlay();
-	if (query.isFetching) {
+	if (query.isLoading) {
 		return <LoadingIndicator />;
 	}
 	if (query.isError) {
