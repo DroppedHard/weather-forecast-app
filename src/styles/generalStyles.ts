@@ -35,9 +35,21 @@ export const moleculeStyles = {
 		p: 4,
 	},
 	positionedCard: {
-		position: "absolute" as const,
+		position: "absolute",
 		zIndex: 20,
 		borderRadius: "5px",
+		maxWidth: "500px",
+		maxHeight: "500px",
+		width: "90%",
+		bottom: {
+			bottom: 15,
+			left: "50%",
+			transform: "translate(-50%)",
+		},
+		topRight: {
+			top: 15,
+			right: 15,
+		},
 	},
 };
 
@@ -53,8 +65,8 @@ export const organismStyles = {
 			justifyContent: "flex-end",
 		},
 		table: {
-			maxWidth: "300px",
-			maxHeight: "300px",
+			maxWidth: "500px",
+			maxHeight: "500px",
 		},
 		infoIcon: {
 			fontSize: 12,

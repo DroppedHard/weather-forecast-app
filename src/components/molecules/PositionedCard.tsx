@@ -11,19 +11,13 @@ export const PositionedCard = ({
 	placement = "top-right",
 }: PositionedCardProps) => {
 	const positionMap = {
-		bottom: {
-			bottom: 15,
-			left: "50%",
-			transform: "translate(-50%)",
-		},
-		"top-right": {
-			top: 15,
-			right: 15,
-		},
+		bottom: moleculeStyles.positionedCard.bottom,
+		"top-right": moleculeStyles.positionedCard.topRight,
 	};
 	return (
 		<Box
-			style={{
+			component="div"
+			sx={{
 				...moleculeStyles.positionedCard,
 				...positionMap[placement],
 			}}

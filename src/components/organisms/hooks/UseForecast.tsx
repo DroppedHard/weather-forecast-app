@@ -11,6 +11,7 @@ export const useGetWeeklyForecast = (geolocation: GeolocationData) => {
 	return useQuery<WeatherForecastResponse, Error>({
 		queryKey: weatherApiKeys.forecast,
 		queryFn: async () => getNextWeekForecast(geolocation),
+		enabled: false,
 	});
 };
 
@@ -18,5 +19,6 @@ export const useGetWeeklySummary = (geolocation: GeolocationData) => {
 	return useQuery<WeatherSummaryResponse, Error>({
 		queryKey: weatherApiKeys.summary,
 		queryFn: async () => getNextWeekSummary(geolocation),
+		enabled: false,
 	});
 };

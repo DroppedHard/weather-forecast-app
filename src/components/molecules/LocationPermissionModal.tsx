@@ -13,7 +13,7 @@ type LocationPermissionModalProps = {
 
 export const LocationPermissionModal = ({
 	handleClose,
-	setGeolocation: setLocation,
+	setGeolocation,
 	isOpen,
 }: LocationPermissionModalProps) => {
 	const { showAlert } = useOverlay();
@@ -31,11 +31,10 @@ export const LocationPermissionModal = ({
 		}
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
-				setLocation(position.coords);
+				setGeolocation(position.coords);
 				handleClose();
 			},
 			(err) => {
-				console.log(err);
 				showAlert(
 					<PersonalizedAlert
 						message={`Error: ${err.message}`}

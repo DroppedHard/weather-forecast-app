@@ -11,6 +11,7 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
+	useTheme,
 } from "@mui/material";
 import { WmoWeatherCodeIcon } from "components/atoms";
 import PersonalizedPopup from "components/atoms/PersonalizedPopup";
@@ -26,11 +27,11 @@ type ForecastTableProps = {
 export const ForecastTable = ({ data }: ForecastTableProps) => {
 	const { daily, daily_units } = data;
 
-	const [isTableVisible, setIsTableVisible] = useState(false);
+	const [isTableVisible, setIsTableVisible] = useState(true);
 	const handleToggleTable = () => {
 		setIsTableVisible((prev) => !prev); // Toggle visibility of the table
 	};
-
+	const theme = useTheme(); // Get the current theme
 	const generateValues = (key: string, value: string | number) => {
 		switch (key) {
 			case "time":
@@ -67,7 +68,15 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 					variant="contained"
 					onClick={handleToggleTable}
 					startIcon={<TableChartIcon />}
-				/>
+					sx={{
+						display: {
+							xs: "inherit",
+							sm: "none",
+						},
+					}}
+				>
+					Prognoza
+				</Button>
 			</Box>
 			<Collapse in={isTableVisible}>
 				<TableContainer
@@ -75,7 +84,13 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 					sx={organismStyles.forecastTable.table}
 				>
 					<Table size="small">
-						<TableHead>
+						<TableHead
+							sx={{
+								backgroundColor:
+									theme.palette.mode === "dark" ? "#444" : "#d3d3d3", // Conditional background color
+								color: theme.palette.mode === "dark" ? "#fff" : "#000", // Text color adjustment
+							}}
+						>
 							<TableRow>
 								{Object.entries(daily_units).map(([key, unit]) => (
 									<TableCell key={key}>
