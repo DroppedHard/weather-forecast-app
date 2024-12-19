@@ -19,9 +19,7 @@ export const QueryWrapper = <T,>({
 					textAlign: "center",
 				}}
 			>
-				<Typography>
-					Błąd w trakcie pobierania danych {query.error.message}
-				</Typography>
+				<Typography>Wystąpił błąd w trakcie pobierania danych</Typography>
 			</div>
 		);
 	}
