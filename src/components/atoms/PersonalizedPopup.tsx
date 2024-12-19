@@ -1,5 +1,6 @@
 import { IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
+import { atomStyles } from "styles/generalStyles";
 
 type PersonalizedPopupProps = {
 	iconOrText: JSX.Element | string;
@@ -17,17 +18,20 @@ export default function PersonalizedPopup({
 	const handleTooltipClose = () => {
 		setOpen(false);
 	};
-
-	const renderContent = () => {
-		if (typeof iconOrText === "string") {
-			return <span>{iconOrText}</span>;
-		}
-		return <IconButton onClick={handleTooltipOpen}>{iconOrText}</IconButton>;
+	const handleString = (iconOrText: JSX.Element | string) => {
+		if (typeof iconOrText === "string")
+			return (
+				<span style={atomStyles.personalizedPopup.tableStringFont}>
+					{iconOrText}
+				</span>
+			);
+		return iconOrText;
 	};
-
 	return (
 		<Tooltip title={popupText} open={open} onClose={handleTooltipClose}>
-			{renderContent()}
+			<IconButton onClick={handleTooltipOpen}>
+				{handleString(iconOrText)}
+			</IconButton>
 		</Tooltip>
 	);
 }

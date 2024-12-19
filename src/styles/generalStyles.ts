@@ -20,6 +20,11 @@ export const atomStyles = {
 		left: 45,
 		zIndex: 50,
 	},
+	personalizedPopup: {
+		tableStringFont: {
+			fontSize: 15,
+		},
+	},
 };
 
 export const moleculeStyles = {
@@ -40,7 +45,6 @@ export const moleculeStyles = {
 		borderRadius: "5px",
 		maxWidth: "500px",
 		maxHeight: "500px",
-		background: "gray",
 		width: "90%",
 		bottomPosition: {
 			bottom: 15,

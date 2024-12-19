@@ -47,14 +47,14 @@ export const ForecastTable = ({ data }: ForecastTableProps) => {
 			case "temperature_2m_min":
 				return (
 					<PersonalizedPopup
-						iconOrText={value as string}
+						iconOrText={value.toString()}
 						popupText={daily_units[key]}
 					/>
 				);
 			case "estimated_energy_generated":
 				return (
 					<PersonalizedPopup
-						iconOrText={(value as number).toFixed(2)}
+						iconOrText={(value as number).toFixed(2) as string}
 						popupText={daily_units[key]}
 					/>
 				);
