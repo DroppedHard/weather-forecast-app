@@ -11,8 +11,8 @@ export const PositionedCard = ({
 	placement = "top-right",
 }: PositionedCardProps) => {
 	const positionMap = {
-		bottom: moleculeStyles.positionedCard.bottom,
-		"top-right": moleculeStyles.positionedCard.topRight,
+		bottom: moleculeStyles.positionedCard.bottomPosition,
+		"top-right": moleculeStyles.positionedCard.topRightPosition,
 	};
 	return (
 		<Box

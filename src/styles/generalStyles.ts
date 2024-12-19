@@ -40,13 +40,14 @@ export const moleculeStyles = {
 		borderRadius: "5px",
 		maxWidth: "500px",
 		maxHeight: "500px",
+		background: "gray",
 		width: "90%",
-		bottom: {
+		bottomPosition: {
 			bottom: 15,
 			left: "50%",
 			transform: "translate(-50%)",
 		},
-		topRight: {
+		topRightPosition: {
 			top: 15,
 			right: 15,
 		},

@@ -1,8 +1,6 @@
+import { Typography } from "@mui/material";
 import type { UseQueryResult } from "@tanstack/react-query";
-import { PersonalizedAlert } from "components/atoms";
 import { LoadingIndicator } from "components/atoms/LoadingIndicator";
-import { useOverlay } from "components/organisms/context";
-import { AlertSeverity } from "types/types";
 
 type QueryWrapperProps<T> = {
 	query: UseQueryResult<T>;
@@ -12,17 +10,24 @@ export const QueryWrapper = <T,>({
 	query,
 	renderSuccess,
 }: QueryWrapperProps<T>) => {
-	const { showAlert } = useOverlay();
+	if (query.isError) {
+		return (
+			<div
+				style={{
+					background: "rgba(255, 146, 146, 0.8)",
+					borderRadius: 2,
+					textAlign: "center",
+				}}
+			>
+				<Typography>
+					Błąd w trakcie pobierania danych {query.error.message}
+				</Typography>
+			</div>
+		);
+	}
+
 	if (query.isLoading) {
 		return <LoadingIndicator />;
-	}
-	if (query.isError) {
-		showAlert(
-			<PersonalizedAlert
-				message={`Error: ${query.error.message}`}
-				severity={AlertSeverity.error}
-			/>,
-		);
 	}
 	if (query.isSuccess) {
 		return renderSuccess(query.data);

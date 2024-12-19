@@ -3,7 +3,7 @@ import { LocationPermissionModal } from "components/molecules";
 import {
 	useGetWeeklyForecast,
 	useGetWeeklySummary,
-} from "components/organisms/hooks/UseForecast";
+} from "components/organisms/hooks/UseWeather";
 import { useEffect, useState } from "react";
 import { AlertSeverity, type GeolocationData } from "types/types";
 import { useOverlay } from "../context";
